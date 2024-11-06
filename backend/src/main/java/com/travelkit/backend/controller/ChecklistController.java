@@ -4,7 +4,6 @@ import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Item;
 import com.travelkit.backend.service.ChecklistService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class ChecklistController {
 
     // 특정 체크리스트 조회
     @GetMapping("/{id}")
-    public ResponseEntity<Checklist> getChecklistById(@PathVariable Long id) {
+    public ResponseEntity<Checklist> getChecklistById(@PathVariable("id") Long id) {
         return checklistService.getChecklistById(id)
                 .map(checklist -> new ResponseEntity<>(checklist, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -40,21 +39,21 @@ public class ChecklistController {
 
     // 체크리스트 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteChecklist(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteChecklist(@PathVariable("id") Long id) {
         checklistService.deleteChecklist(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // 체크리스트에 아이템 추가
     @PostMapping("/{checklistId}/items/add")
-    public ResponseEntity<Item> addItemToChecklist(@PathVariable Long checklistId, @RequestBody Item item) {
+    public ResponseEntity<Item> addItemToChecklist(@PathVariable("checklistId") Long checklistId, @RequestBody Item item) {
         Item createdItem = checklistService.addItemToChecklist(checklistId, item);
         return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
     }
 
     // 특정 체크리스트의 아이템 조회
     @GetMapping("/{checklistId}/items")
-    public List<Item> getItemsByChecklistId(@PathVariable Long checklistId) {
+    public List<Item> getItemsByChecklistId(@PathVariable("checklistId") Long checklistId) {
         return checklistService.getItemsByChecklistId(checklistId);
     }
 }
