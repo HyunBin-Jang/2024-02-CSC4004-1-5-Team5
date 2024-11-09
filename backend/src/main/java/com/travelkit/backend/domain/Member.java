@@ -1,5 +1,6 @@
 package com.travelkit.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +23,11 @@ public class Member {
 
     private String email;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<Checklist> checklists = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 }
