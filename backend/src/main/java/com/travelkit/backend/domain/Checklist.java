@@ -1,5 +1,7 @@
 package com.travelkit.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,7 @@ public class Checklist {
     @Column(name = "checklist_id")
     Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -22,6 +25,7 @@ public class Checklist {
     @Embedded
     private Destination destination;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checklist")
     private List<Item> checklistItems;
 }

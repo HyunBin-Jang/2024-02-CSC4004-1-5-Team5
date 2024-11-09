@@ -1,5 +1,6 @@
 package com.travelkit.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Item {
     @JoinColumn(nullable = false)
     private Boolean ischecked;
 
+    @JsonBackReference
     @ManyToOne
     private Checklist checklist;
 }
