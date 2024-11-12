@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="style.css">
   <title>travel kit - 로그인</title>
   <script src="login.js" defer></script>
 </head>
@@ -11,9 +11,10 @@
   <header>
     <img src="png/logo.png" alt="logo" class="logo">
     <h1>TRAVEL KIT</h1>
+    <img src="png/delete.png" alt="deleteicon" class="delete" onclick="location.href='index.html'">
   </header>
   
-  <form name="fo" method="get" onsubmit="return validateForm()">
+  <form id="login-form" name="fo" method="get" onsubmit="return validateForm()">
     <h2>로그인</h2>
     <input type="text" id="username" size="15" placeholder="아이디"><br>
     <input type="password" id="password" size="15" placeholder="비밀번호"><br>
@@ -22,7 +23,7 @@
     </label><br>
     <input type="submit" value="LOGIN">
     <p id="error-message" style="color: red; display: none;"></p> <!-- 에러 메시지 표시 -->
-    <p><a href="signup.html">회원가입</a></p> <!-- 회원가입 페이지 링크 -->
+    <p>계정이 없으신가요? <a href="signup.html">회원가입</a></p> <!-- 회원가입 페이지 링크 -->
   </form>
 </body>
 </html>
