@@ -49,4 +49,10 @@ public class PostService {
     public void deletePost(Long id) {
         postRepository.delete(id);
     }
+
+    public Optional<Post> likePost(Long id) {
+        Optional<Post> postOptional = postRepository.findById(id);
+        postOptional.ifPresent(post -> post.setLikes(post.getLikes() + 1));
+        return postOptional;
+    }
 }
