@@ -24,4 +24,5 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
     private LocalDateTime createdAt;
+    private Long Likes;
 }
