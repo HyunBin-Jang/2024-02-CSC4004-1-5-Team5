@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
     // 게시물 생성
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<Long> createPost(@RequestBody Post post) {
         Long postId = postService.createPost(post);
         return new ResponseEntity<>(postId, HttpStatus.CREATED);

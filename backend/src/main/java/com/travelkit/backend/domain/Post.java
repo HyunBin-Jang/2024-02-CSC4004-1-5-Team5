@@ -22,6 +22,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
     private LocalDateTime createdAt;
-    private Long Likes;
+
+    @Column(nullable = false)
+    private Long likes = 0L;
 }
