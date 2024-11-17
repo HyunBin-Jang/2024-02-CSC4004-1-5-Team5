@@ -1,11 +1,10 @@
 package com.travelkit.backend.controller;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import com.travelkit.backend.domain.LoginRequest;
 import com.travelkit.backend.domain.Member;
 import com.travelkit.backend.service.MemberService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,16 @@ public class MemberController {
         return "ok";
     }
     @PostMapping(value = "/login")
-    public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response){
         System.out.println(loginRequest.getLoginId() + " " + loginRequest.getPassword());
         Optional<Member> member = memberService.login(loginRequest.getLoginId(), loginRequest.getPassword());
+        Cookie cookie = new Cookie("memberId", loginRequest.getLoginId());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(12 * 60 * 60);
+
+        response.addCookie(cookie);
         return member.<ResponseEntity<Object>>map(value -> new ResponseEntity<>(value, HttpStatus.OK)) // 값이 존재하면 Member 객체와 200 OK 반환
                 .orElseGet(() -> new ResponseEntity<>("Member not found", HttpStatus.NOT_FOUND));    // 값이 없으면 메시지와 404 NOT FOUND 반환
     }
