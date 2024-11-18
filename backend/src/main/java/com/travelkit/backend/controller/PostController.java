@@ -61,4 +61,11 @@ public class PostController {
         return likedPost.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
+    // 좋아요 수 top5 게시글 조회 (인기글 조회)
+    @GetMapping("/popular")
+    public ResponseEntity<List<Post>> getTop5Posts() {
+        List<Post> posts = postService.getTop5Posts();
+        return ResponseEntity.ok(posts);
+    }
 }

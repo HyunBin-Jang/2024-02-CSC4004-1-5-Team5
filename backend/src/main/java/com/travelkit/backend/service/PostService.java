@@ -55,4 +55,7 @@ public class PostService {
         postOptional.ifPresent(post -> post.setLikes(post.getLikes() + 1));
         return postOptional;
     }
+
+    // 좋아요 수 top5 게시글 조회
+    public List<Post> getTop5Posts(){return postRepository.findTop5ByLikes();}
 }
