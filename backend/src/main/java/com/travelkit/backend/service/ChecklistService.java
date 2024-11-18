@@ -14,11 +14,13 @@ import java.util.Optional;
 public class ChecklistService {
     private final ChecklistRepository checklistRepository;
     private final ItemRepository itemRepository;
+    private final VisaService visaService;
 
     @Autowired
-    public ChecklistService(ChecklistRepository checklistRepository, ItemRepository itemRepository) {
+    public ChecklistService(ChecklistRepository checklistRepository, ItemRepository itemRepository, VisaService visaService) {
         this.checklistRepository = checklistRepository;
         this.itemRepository = itemRepository;
+        this.visaService = visaService;
     }
 
     // 체크리스트 생성
@@ -47,9 +49,27 @@ public class ChecklistService {
         item.setChecklist(checklist);
         return itemRepository.save(item);
     }
-
     // 체크리스트의 모든 아이템 조회
     public List<Item> getItemsByChecklistId(Long checklistId) {
         return itemRepository.findAllByChecklistId(checklistId);
+    }
+
+    public Checklist addDefaultItems(Checklist checklist){
+        Item passport = new Item();
+        passport.setChecklist(checklist);
+        passport.setName("여권");
+        addItemToChecklist(checklist.getId(), passport);
+        Item ticket = new Item();
+        ticket.setChecklist(checklist);
+        ticket.setName("비행기 티켓");
+        addItemToChecklist(checklist.getId(), ticket);
+        addItemToChecklist(checklist.getId(), passport);
+        if(visaService.isVisaRequired(checklist.getDestination().getCountry())){
+            Item visa = new Item();
+            visa.setChecklist(checklist);
+            visa.setName("비자");
+            addItemToChecklist(checklist.getId(), visa);
+        }
+        return checklist;
     }
 }

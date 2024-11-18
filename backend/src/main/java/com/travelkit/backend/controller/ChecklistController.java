@@ -20,6 +20,7 @@ public class ChecklistController {
     @PostMapping("/create")
     public ResponseEntity<Checklist> createChecklist(@RequestBody Checklist checklist) {
         Checklist createdChecklist = checklistService.createChecklist(checklist);
+        createdChecklist = checklistService.addDefaultItems(createdChecklist);
         return new ResponseEntity<>(createdChecklist, HttpStatus.CREATED);
     }
 
