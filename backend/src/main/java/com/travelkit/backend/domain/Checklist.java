@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,10 @@ public class Checklist {
 
     @Embedded
     private Destination destination;
+
+    private LocalDate departureDate;
+
+    private LocalDate arrivalDate;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checklist")
