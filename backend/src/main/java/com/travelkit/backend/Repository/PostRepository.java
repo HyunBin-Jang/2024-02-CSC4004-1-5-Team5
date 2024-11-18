@@ -1,5 +1,6 @@
 package com.travelkit.backend.Repository;
 
+import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Post;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -44,5 +45,10 @@ public class PostRepository {
         if (post != null) {
             em.remove(post);
         }
+    }
+    // 좋아요 수 상위 5개
+    public List<Post> findTop5ByLikes() {
+        String query = "SELECT p FROM Post p ORDER BY p.likes DESC LIMIT 5";
+        return em.createQuery(query, Post.class).getResultList();
     }
 }

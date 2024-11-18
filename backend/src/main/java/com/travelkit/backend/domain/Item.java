@@ -17,7 +17,7 @@ public class Item {
     private String name;
 
     @JoinColumn(nullable = false)
-    private Boolean ischecked;
+    private Boolean ischecked = false;
 
     @JsonBackReference
     @ManyToOne

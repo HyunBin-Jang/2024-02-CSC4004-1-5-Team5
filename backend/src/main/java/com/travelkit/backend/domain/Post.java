@@ -18,10 +18,13 @@ public class Post {
     private String title;
     private String content;
 
-
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private Long likes = 0L;
 }

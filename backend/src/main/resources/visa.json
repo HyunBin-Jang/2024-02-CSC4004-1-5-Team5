@@ -1,0 +1,92 @@
+[
+  {
+    "country": "Japan",
+    "visaRequired": false,
+    "details": "한국 여권 소지자는 최대 90일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "China",
+    "visaRequired": true,
+    "details": "관광, 비즈니스 등의 모든 방문에 비자 필요."
+  },
+  {
+    "country": "Taiwan",
+    "visaRequired": false,
+    "details": "한국 여권 소지자는 최대 90일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Hong Kong",
+    "visaRequired": false,
+    "details": "한국 여권 소지자는 최대 90일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Philippines",
+    "visaRequired": false,
+    "details": "최대 30일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Indonesia",
+    "visaRequired": false,
+    "details": "최대 30일 동안 무비자 입국 가능 (도착비자 발급 가능)."
+  },
+  {
+    "country": "Thailand",
+    "visaRequired": false,
+    "details": "최대 30일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Vietnam",
+    "visaRequired": false,
+    "details": "최대 15일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Singapore",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "Malaysia",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능."
+  },
+  {
+    "country": "United States",
+    "visaRequired": true,
+    "details": "전자여행허가제(ESTA) 승인 필요 (90일 이하 관광/비즈니스 목적)."
+  },
+  {
+    "country": "Canada",
+    "visaRequired": true,
+    "details": "전자여행허가제(eTA) 승인 필요 (항공 입국 시)."
+  },
+  {
+    "country": "Australia",
+    "visaRequired": true,
+    "details": "전자여행허가제(ETA) 신청 필요."
+  },
+  {
+    "country": "United Kingdom",
+    "visaRequired": false,
+    "details": "최대 6개월 동안 무비자 입국 가능 (관광/비즈니스 목적)."
+  },
+  {
+    "country": "Germany",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능 (쉥겐 협정 국가)."
+  },
+  {
+    "country": "France",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능 (쉥겐 협정 국가)."
+  },
+  {
+    "country": "Italy",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능 (쉥겐 협정 국가)."
+  },
+  {
+    "country": "Spain",
+    "visaRequired": false,
+    "details": "최대 90일 동안 무비자 입국 가능 (쉥겐 협정 국가)."
+  }
+]
