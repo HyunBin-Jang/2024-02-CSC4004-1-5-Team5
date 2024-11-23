@@ -44,13 +44,27 @@ public class CFService {
             Set<String> otherUserItems = userItemsMap.get(otherChecklistId);
             for (String item : otherUserItems) {
                 if (!currentUserItems.contains(item)) {
-                    recommendationScores.put(item, recommendationScores.getOrDefault(item, 0.0) + similarity);
+                    // 기존 추천 점수가 존재하면 현재 유사도와 비교하여 더 높은 값을 저장
+                    double existingScore = recommendationScores.getOrDefault(item, 0.0);
+                    if (similarity > existingScore) {
+                        recommendationScores.put(item, similarity);
+                    }
                 }
             }
-        }
 
+        }
         // 추천 준비물 리스트 정렬
-        return recommendationScores;
+        Map<String, Double> sortedItemsDesc = recommendationScores.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new // 정렬된 순서를 유지
+                ));
+
+        return sortedItemsDesc;
     }
 
     private double calculateCosineSimilarity(Set<String> itemsA, Set<String> itemsB) {
