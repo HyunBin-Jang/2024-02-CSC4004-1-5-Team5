@@ -30,8 +30,7 @@ public class MemberController {
     public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response){
         System.out.println(loginRequest.getLoginId() + " " + loginRequest.getPassword());
         Optional<Member> member = memberService.login(loginRequest.getLoginId(), loginRequest.getPassword());
-        Cookie cookie = new Cookie("memberId", loginRequest.getLoginId());
-        cookie.setHttpOnly(true);
+        Cookie cookie = new Cookie("userId", loginRequest.getLoginId());
         cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setMaxAge(12 * 60 * 60);
