@@ -53,6 +53,17 @@ public class ChecklistService {
     public List<Item> getItemsByChecklistId(Long checklistId) {
         return itemRepository.findAllByChecklistId(checklistId);
     }
+    // 아이템 삭제
+    public void deleteItem(Long itemId) {
+        itemRepository.deleteById(itemId);
+    }
+    // 단일 항목의 isChecked 값 반대로 변경
+    public void toggleItem(Long itemId) {
+        itemRepository.findById(itemId).ifPresent(item -> {
+            item.setIschecked(!item.getIschecked()); // 값 반전
+            itemRepository.save(item);
+        });
+    }
 
     public Checklist addDefaultItems(Checklist checklist){
         Item passport = new Item();

@@ -1,7 +1,9 @@
 package com.travelkit.backend.service;
 
+import com.travelkit.backend.Repository.ChecklistRepository;
 import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,9 +11,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class CFService {
-    public  Map<String, Double> recommendItems(String destination, Long checklistId, List<Checklist> checklists) {
+    private final ChecklistRepository checklistRepository;
+
+    @Autowired
+    public CFService(ChecklistRepository checklistRepository) {
+        this.checklistRepository = checklistRepository;
+    }
+
+    public  Map<String, Double> recommendItems(Long checklistId) {
         // 사용자별 준비물 매트릭스 생성
         Map<Long, Set<String>> userItemsMap = new HashMap<>();
+        Checklist target = checklistRepository.findById(checklistId).orElse(null);
+        if (target == null){
+            return null;
+        }
+        List<Checklist> checklists = checklistRepository.findByDestinationCountry(target.getDestination().getCountry());
         for (Checklist checklist : checklists) {
             Set<String> items = Optional.ofNullable(checklist.getChecklistItems())
                     .orElse(Collections.emptyList())
@@ -20,7 +34,6 @@ public class CFService {
                     .collect(Collectors.toSet());
             userItemsMap.put(checklist.getId(), items);
         }
-
         // 현재 사용자의 준비물 가져오기
         Set<String> currentUserItems = userItemsMap.getOrDefault(checklistId, new HashSet<>());
 
