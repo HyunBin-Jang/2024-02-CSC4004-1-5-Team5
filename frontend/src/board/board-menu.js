@@ -1,7 +1,7 @@
 import React from "react";
 import "../style.css";
 
-function Menu2({ onClose }) {
+function BoardMenu({ onClose, deletePost, editPost }) {
     return (
         <div className="menu-overlay">
             <div className="menu-container">
@@ -12,18 +12,14 @@ function Menu2({ onClose }) {
                         src="/png/delete.png"
                         alt="close menu"
                         className="delete-icon"
-                        onClick={onClose}
+                        onClick={onClose} // Close the menu
                     />
                 </header>
                 <nav>
                     <h3>
-                        <a href="#">나의 체크리스트</a>
+                        <button onClick={editPost}>수정하기</button>
                         <br />
-                        <br />
-                        <a href="#">게시판</a>
-                        <br />
-                        <br />
-                        <a href="#">로그인</a>
+                        <button onClick={deletePost}>삭제하기</button>
                         <br />
                         <br />
                     </h3>
@@ -32,4 +28,5 @@ function Menu2({ onClose }) {
         </div>
     );
 }
-export default Menu2;
+
+export default BoardMenu;
