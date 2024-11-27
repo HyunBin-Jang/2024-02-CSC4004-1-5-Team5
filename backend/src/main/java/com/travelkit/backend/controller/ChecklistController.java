@@ -55,32 +55,24 @@ public class ChecklistController {
         return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
     }
 
+
     // 특정 체크리스트의 아이템 조회
     @GetMapping("/{checklistId}/items")
     public List<Item> getItemsByChecklistId(@PathVariable("checklistId") Long checklistId) {
         return checklistService.getItemsByChecklistId(checklistId);
     }
 
-    @PostMapping("/{id}/recommendations")
-    public ResponseEntity<String> addRecommendedItems(@PathVariable Long id) {
-        // 특정 체크리스트 가져오기
-        Checklist checklist = checklistService.getChecklistById(id)
-                .orElseThrow(() -> new RuntimeException("Checklist not found"));
-
-        // CFService를 통해 추천 아이템 가져오기
-        Map<String, Double> recommendedItems = cfService.recommendItems(
-                checklist.getDestination().getCity(),
-                id,
-                checklistService.getAllChecklists()
-        );
-
-        // 추천 아이템을 체크리스트에 추가
-        recommendedItems.keySet().forEach(itemName -> {
-            Item item = new Item();
-            item.setName(itemName);
-            checklistService.addItemToChecklist(id, item);
-        });
-
-        return ResponseEntity.ok("추천된 아이템이 체크리스트에 추가되었습니다.");
+    // 단일 항목의 isChecked 값 반대로 변경
+    @PostMapping("/items/{itemId}/toggle")
+    public ResponseEntity<Void> toggleItem(@PathVariable("itemId") Long itemId) {
+        checklistService.toggleItem(itemId);
+        return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<Void> deleteItem(@PathVariable("itemId") Long itemId) {
+        checklistService.deleteItem(itemId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
