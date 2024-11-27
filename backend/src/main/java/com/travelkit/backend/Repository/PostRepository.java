@@ -51,4 +51,10 @@ public class PostRepository {
         String query = "SELECT p FROM Post p ORDER BY p.likes DESC LIMIT 5";
         return em.createQuery(query, Post.class).getResultList();
     }
+
+    // 특정 나라 게시물
+    public List<Post> findByCountry(String country) {
+        String query = "SELECT p FROM Post p WHERE p.country = :country";
+        return em.createQuery(query, Post.class).getResultList();
+    }
 }

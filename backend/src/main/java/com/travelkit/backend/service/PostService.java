@@ -52,10 +52,17 @@ public class PostService {
 
     public Optional<Post> likePost(Long id) {
         Optional<Post> postOptional = postRepository.findById(id);
-        postOptional.ifPresent(post -> post.setLikes(post.getLikes() + 1));
+        postOptional.ifPresent(post -> {
+            post.setLikes(post.getLikes() + 1); // 좋아요 수 증가
+            postRepository.update(post); // 변경된 Post 객체 저장
+        });
         return postOptional;
     }
 
     // 좋아요 수 top5 게시글 조회
     public List<Post> getTop5Posts(){return postRepository.findTop5ByLikes();}
+
+    public List<Post> getPostsByCountry(String countryname) {
+        return postRepository.findByCountry(countryname);
+    }
 }
