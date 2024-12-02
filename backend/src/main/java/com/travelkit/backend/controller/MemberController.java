@@ -39,6 +39,19 @@ public class MemberController {
         return member.<ResponseEntity<Object>>map(value -> new ResponseEntity<>(value, HttpStatus.OK)) // 값이 존재하면 Member 객체와 200 OK 반환
                 .orElseGet(() -> new ResponseEntity<>("Member not found", HttpStatus.NOT_FOUND));    // 값이 없으면 메시지와 404 NOT FOUND 반환
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        // 쿠키 삭제
+        Cookie cookie = new Cookie("userId", null);
+        cookie.setSecure(true); // HTTPS일 경우 사용
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // 유효 기간 0으로 설정하여 삭제
+        response.addCookie(cookie);
+        // 로그아웃 성공 응답
+        return ResponseEntity.ok("로그아웃되었습니다.");
+    }
+
     @GetMapping(value = "/members")
     public List<Member> list() {
         return memberService.findMembers();
