@@ -33,7 +33,7 @@ public class PostController {
 
     // 특정 게시물 조회
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+    public ResponseEntity<Post> getPostById(@PathVariable("id") Long id) {
         Optional<Post> post = postService.getPostById(id);
         return post.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -41,7 +41,7 @@ public class PostController {
 
     // 게시물 수정
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
+    public ResponseEntity<Post> updatePost(@PathVariable("id") Long id, @RequestBody Post postDetails) {
         Optional<Post> updatedPost = Optional.ofNullable(postService.updatePost(id, postDetails.getTitle(), postDetails.getContent()));
         return updatedPost.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -49,14 +49,14 @@ public class PostController {
 
     // 게시물 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable("id") Long id) {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
 
     // 게시물 좋아요 증가
     @PostMapping("/{id}/like")
-    public ResponseEntity<Post> likePost(@PathVariable Long id) {
+    public ResponseEntity<Post> likePost(@PathVariable("id") Long id) {
         Optional<Post> likedPost = postService.likePost(id);
         return likedPost.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -66,6 +66,20 @@ public class PostController {
     @GetMapping("/popular")
     public ResponseEntity<List<Post>> getTop5Posts() {
         List<Post> posts = postService.getTop5Posts();
+        return ResponseEntity.ok(posts);
+    }
+
+<<<<<<< HEAD
+    // 특정 나라 게시물 조회
+    @GetMapping("/country/{countryname}")
+    public ResponseEntity<List<Post>> getPostsByCountry(@PathVariable("countryname") String countryname) {
+        List<Post> posts = postService.getPostsByCountry(countryname);
+=======
+    // 나라별 게시글 조회
+    @GetMapping("/country/{name}")
+    public ResponseEntity<List<Post>> getPostByCountry(@PathVariable("name") String country) {
+        List<Post> posts = postService.getPostsByCountry(country);
+>>>>>>> 78b4cb00fac566f804501463cb86a57ea8b9ffee
         return ResponseEntity.ok(posts);
     }
 }

@@ -1,140 +1,69 @@
+
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 * {
-  margin: 0;
-  padding: 0;
-  font-family: 'Pretendard', sans-serif; /* 모든 요소에 Pretendard 폰트 적용 */
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
 }
+
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 상단부터 배치 */
+    min-height: 100vh; /* 화면 전체 높이를 채우기 위해 설정 */
+    background-color: #ffffff;
+    margin: 0;
 }
 
-header {
-  position: fixed;
-  top: 0;
+/* Header 스타일 */
+.calen-header {
+  display: table;
   width: 100%;
-  background-color: #ffffff;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 20px; /* 상단 여백 추가 */
 }
 
-
-
-header h1 {
-  font-size: 28px;
+.calen-header h1 {
+  font-size: 21px;
   color: #414141;
   font-weight: 800;
+  text-align: center;
+  flex-grow: 1; /* 텍스트가 가운데에 오도록 설정 */
+  margin: 0; /* 기본 여백 제거 */
 }
 
-
-form {
+/* Container 스타일 */
+.calen-container {
+  text-align: center;
   padding: 20px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  width: 314px;
-  margin-top: 100px; 
 }
 
-form h2 {
-  font-size: 20px;
-  color: #414141;
+.calen-container form h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.calen-container .calendar {
+  display: inline-block;
   margin-bottom: 20px;
 }
 
-
-
-form input[type="submit"] {
-  background-color: #0A62D0;
-  color: #FFFFFF;
-  height: 43px;
-  width: 80%;
-  border-radius: 10px;
-  cursor: pointer;
+.calen-container .button-container {
   margin-top: 20px;
 }
-.left-align {
-  width: 100%;
-  text-align: left; /* 왼쪽 정렬 */
-  margin-left: 25%; /* 필요한 경우 왼쪽 여백 추가 */
+
+.calen-container .create-checklist-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
 }
 
-
-
-form p a:hover {
-  color: #0056b3; /* 마우스 오버 시 색상 변경 (선택사항) */
-}
-
-/* Center the calendar container and adjust width for smaller screens */
-.calendar-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-    padding: 0 16px; /* Adds some padding to prevent it from touching edges on small screens */
-    width: 100%;
-}
-
-/* Adjust the calendar size and styling */
-.flatpickr-calendar {
-    background-color: #95bade;
-    border-radius: 9px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Default to full width */
-    max-width: 100%; /* Ensures it doesn't exceed container width */
-}
-
-/* Selected date style */
-.flatpickr-day.selected {
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 50%;
-}
-
-/* Today's date style */
-.flatpickr-day.today {
-    border: 1px solid #007bff;
-    border-radius: 50%;
-}
-
-/* Weekday header style */
-.flatpickr-weekday {
-    font-weight: bold;
-    color: #333;
-}
-
-
-/* Hover style for specific dates */
-.flatpickr-day:hover {
-    background-color: #e0f0ff;
-}
-
-/* Responsive adjustments for calendar size and centering */
-@media (max-width: 480px) {
-    .flatpickr-calendar {
-        max-width: 90vw; /* Makes it responsive on very small screens */
-    }
-}
-
-@media (min-width: 480px) and (max-width: 768px) {
-    .flatpickr-calendar {
-        max-width: 400px; /* Medium screens, like tablets */
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .flatpickr-calendar {
-        max-width: 500px; /* Larger tablets or small laptops */
-    }
-}
-
-@media (min-width: 1024px) {
-    .flatpickr-calendar {
-        max-width: 600px; /* Desktops */
-    }
+.calen-container .create-checklist-button:hover {
+  background-color: #0056b3;
 }

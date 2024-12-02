@@ -1,8 +1,10 @@
 package com.travelkit.backend.Repository;
 
 import com.travelkit.backend.domain.Checklist;
+import com.travelkit.backend.domain.Item;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,12 @@ public class ChecklistRepository {
         return entityManager.createQuery(query, Checklist.class).getResultList();
     }
 
+    // 모든 체크리스트 조회
+    public List<Checklist> findByCity() {
+        String query = "SELECT c FROM Checklist c";
+        return entityManager.createQuery(query, Checklist.class).getResultList();
+    }
+
     // 체크리스트 삭제
     @Transactional
     public void deleteById(Long id) {
@@ -45,5 +53,12 @@ public class ChecklistRepository {
         if (checklist != null) {
             entityManager.remove(checklist);
         }
+    }
+
+    public List<Checklist> findByDestinationCountry(String country){
+        String query = "SELECT c FROM Checklist c WHERE c.destination.country = :country";
+        return entityManager.createQuery(query, Checklist.class)
+                .setParameter("country", country)
+                .getResultList();
     }
 }

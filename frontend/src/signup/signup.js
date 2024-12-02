@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../login/login.css';
+import {useNavigate} from 'react-router-dom';
 
 function Signup() {
   const [id, setId] = useState('');
@@ -9,6 +10,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch('/members/new', {
+      const response = await fetch(`http://13.124.145.176:8080/members/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,6 +43,7 @@ function Signup() {
 
       if (response.ok) {
         setSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
+        navigate("/login")
       } else {
         setErrorMessage('회원가입에 실패했습니다.');
       }

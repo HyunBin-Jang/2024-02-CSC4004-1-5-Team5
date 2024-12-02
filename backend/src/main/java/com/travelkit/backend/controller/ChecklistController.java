@@ -2,25 +2,32 @@ package com.travelkit.backend.controller;
 
 import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Item;
+import com.travelkit.backend.service.CFService;
 import com.travelkit.backend.service.ChecklistService;
+import com.travelkit.backend.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/checklists")
 public class ChecklistController {
     private final ChecklistService checklistService;
+    private final CFService cfService;
+    private final WeatherService weatherService;
 
     // 체크리스트 생성
     @PostMapping("/create")
-    public ResponseEntity<Checklist> createChecklist(@RequestBody Checklist checklist) {
+    public ResponseEntity<Checklist> createChecklist(@RequestBody Checklist checklist) throws IOException {
         Checklist createdChecklist = checklistService.createChecklist(checklist);
         createdChecklist = checklistService.addDefaultItems(createdChecklist);
+        weatherService.generateWeatherData(createdChecklist);
         return new ResponseEntity<>(createdChecklist, HttpStatus.CREATED);
     }
 
@@ -52,9 +59,23 @@ public class ChecklistController {
         return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
     }
 
+
     // 특정 체크리스트의 아이템 조회
     @GetMapping("/{checklistId}/items")
     public List<Item> getItemsByChecklistId(@PathVariable("checklistId") Long checklistId) {
         return checklistService.getItemsByChecklistId(checklistId);
+    }
+
+    // 단일 항목의 isChecked 값 반대로 변경
+    @PostMapping("/items/{itemId}/toggle")
+    public ResponseEntity<Void> toggleItem(@PathVariable("itemId") Long itemId) {
+        checklistService.toggleItem(itemId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<Void> deleteItem(@PathVariable("itemId") Long itemId) {
+        checklistService.deleteItem(itemId);
+        return ResponseEntity.noContent().build();
     }
 }
