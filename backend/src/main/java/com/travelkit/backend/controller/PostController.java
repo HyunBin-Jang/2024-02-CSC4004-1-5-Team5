@@ -68,4 +68,11 @@ public class PostController {
         List<Post> posts = postService.getTop5Posts();
         return ResponseEntity.ok(posts);
     }
+
+    // 나라별 게시글 조회
+    @GetMapping("/country/{name}")
+    public ResponseEntity<List<Post>> getPostByCountry(@PathVariable("name") String country) {
+        List<Post> posts = postService.getPostsByCountry(country);
+        return ResponseEntity.ok(posts);
+    }
 }
