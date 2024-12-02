@@ -33,4 +33,8 @@ public class Checklist {
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checklist")
     private List<Item> checklistItems;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "checklist")
+    private List<Weather> weatherList;
 }

@@ -4,11 +4,13 @@ import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Item;
 import com.travelkit.backend.service.CFService;
 import com.travelkit.backend.service.ChecklistService;
+import com.travelkit.backend.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +20,14 @@ import java.util.Map;
 public class ChecklistController {
     private final ChecklistService checklistService;
     private final CFService cfService;
+    private final WeatherService weatherService;
 
     // 체크리스트 생성
     @PostMapping("/create")
-    public ResponseEntity<Checklist> createChecklist(@RequestBody Checklist checklist) {
+    public ResponseEntity<Checklist> createChecklist(@RequestBody Checklist checklist) throws IOException {
         Checklist createdChecklist = checklistService.createChecklist(checklist);
         createdChecklist = checklistService.addDefaultItems(createdChecklist);
+        weatherService.generateWeatherData(createdChecklist);
         return new ResponseEntity<>(createdChecklist, HttpStatus.CREATED);
     }
 
@@ -74,5 +78,4 @@ public class ChecklistController {
         checklistService.deleteItem(itemId);
         return ResponseEntity.noContent().build();
     }
-
 }
