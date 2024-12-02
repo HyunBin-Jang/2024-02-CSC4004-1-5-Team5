@@ -25,6 +25,8 @@ public class Post {
 
     private LocalDateTime createdAt;
 
+    private String country;
+
     @Column(nullable = false)
     private Long likes = 0L;
 }

@@ -1,6 +1,7 @@
 package com.travelkit.backend.service;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,7 +16,8 @@ import java.util.Map;
 @Service
 public class RecommendItemService {
 
-    private static final String OPENAI_API_KEY;
+    @Value("${OpenAi.api.key}")
+    private String OPENAI_API_KEY;
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
     private final RestTemplate restTemplate = new RestTemplate();
 

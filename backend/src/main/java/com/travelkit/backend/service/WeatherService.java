@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class WeatherService {
+
+    @Value("${OpenAi.api.key}")
     private final String API_KEY = "943e43b39b995ed1261253dc2e7dc594";  // 발급받은 API key
 
     public Map<String, Object> getForecastByCoordinates(double latitude, double longitude) {
