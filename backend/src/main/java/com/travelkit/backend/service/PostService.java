@@ -62,6 +62,8 @@ public class PostService {
     // 좋아요 수 top5 게시글 조회
     public List<Post> getTop5Posts(){return postRepository.findTop5ByLikes();}
 
+
+    // 나라별 게시글 조회
     public List<Post> getPostsByCountry(String countryname) {
         return postRepository.findByCountry(countryname);
     }
