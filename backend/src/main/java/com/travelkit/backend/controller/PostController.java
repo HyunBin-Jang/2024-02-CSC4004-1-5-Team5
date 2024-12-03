@@ -69,17 +69,17 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
-<<<<<<< HEAD
-    // 특정 나라 게시물 조회
-    @GetMapping("/country/{countryname}")
-    public ResponseEntity<List<Post>> getPostsByCountry(@PathVariable("countryname") String countryname) {
-        List<Post> posts = postService.getPostsByCountry(countryname);
-=======
     // 나라별 게시글 조회
     @GetMapping("/country/{name}")
     public ResponseEntity<List<Post>> getPostByCountry(@PathVariable("name") String country) {
         List<Post> posts = postService.getPostsByCountry(country);
->>>>>>> 78b4cb00fac566f804501463cb86a57ea8b9ffee
+        return ResponseEntity.ok(posts);
+    }
+
+    // 특정 나라 게시물 조회
+    @GetMapping("/country/{countryname}")
+    public ResponseEntity<List<Post>> getPostsByCountry(@PathVariable("countryname") String countryname) {
+        List<Post> posts = postService.getPostsByCountry(countryname);
         return ResponseEntity.ok(posts);
     }
 }

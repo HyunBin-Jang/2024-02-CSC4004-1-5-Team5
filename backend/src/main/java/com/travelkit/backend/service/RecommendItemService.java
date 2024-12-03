@@ -3,10 +3,8 @@ package com.travelkit.backend.service;
 import com.travelkit.backend.domain.Checklist;
 import com.travelkit.backend.domain.Weather;
 import org.json.JSONObject;
-<<<<<<< HEAD
-=======
+
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> 78b4cb00fac566f804501463cb86a57ea8b9ffee
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,15 +18,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class    RecommendItemService {
+public class RecommendItemService {
+
     @Autowired
     WeatherService weatherService;
 
-<<<<<<< HEAD
     @Value("${OpenAi.api.key}")
-=======
-    @Value("${openAi.api.key}")
->>>>>>> 78b4cb00fac566f804501463cb86a57ea8b9ffee
     private String OPENAI_API_KEY;
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
     private final RestTemplate restTemplate = new RestTemplate();
