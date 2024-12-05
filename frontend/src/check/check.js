@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./check.css";
 import axios from "axios";
 import { cityToKorean } from '../convert';
+import {useNavigate} from "react-router-dom";
 
 const CheckList = ({ checklistId }) => {
     const [error, setError] = useState("");
@@ -14,7 +15,7 @@ const CheckList = ({ checklistId }) => {
     const [aiRecommendations, setAiRecommendations] = useState(null); // 추천 결과 상태
     const [showAiRecommendations, setShowAiRecommendations] = useState(false); // 추천 결과 표시 여부
     const [weatherData, setWeatherData] = useState([]); // 날씨 데이터
-
+    const navigate = useNavigate();
 
     // API 호출로 체크리스트 데이터 가져오기
     useEffect(() => {
@@ -164,116 +165,128 @@ const CheckList = ({ checklistId }) => {
                 return "/icons/default.png";
         }
     };
+    const goBack = () => {
+        navigate(-1);  // -1은 이전 페이지를 의미
+    };
     const koreanCity = cityToKorean(checklistInfo.city);
     return (
-        <div className="container">
-            <header className = "check-header">
-                <h1>{koreanCity}</h1>
-                <p>{checklistInfo.departureDate} - {checklistInfo.arrivalDate}</p>
-                <div className="weather">
-                    {weatherData.map((weather) => (
-                        <div className="day" key={weather.id}>
-                            <p>{new Date(weather.localDate).toLocaleDateString("ko-KR", {
-                                month: "2-digit",
-                                day: "2-digit"
-                            })}</p>
-                            <img
-                                src={getWeatherIcon(weather.mainWeather)}
-                                alt={weather.mainWeather}
+        <div className= "checkCss">
+            <div className="container">
+                <header className="check-header">
+                    <h1>{koreanCity}</h1>
+                    <p>{checklistInfo.departureDate} - {checklistInfo.arrivalDate}</p>
+                    <div className="weather">
+                        {weatherData.map((weather) => (
+                            <div className="day" key={weather.id}>
+                                <p>{new Date(weather.localDate).toLocaleDateString("ko-KR", {
+                                    month: "2-digit",
+                                    day: "2-digit"
+                                })}</p>
+                                <img
+                                    src={getWeatherIcon(weather.mainWeather)}
+                                    alt={weather.mainWeather}
+                                />
+                                <p>{weather.temp}°</p>
+                            </div>
+                        ))}
+                    </div>
+                    <img
+                        src="/png/delete.png"
+                        alt="Delete"
+                        className="right-button"
+                        onClick={(goBack)}
+                    />
+                </header>
+
+                <div className="checklist">
+                    <h2>체크리스트</h2>
+                    <button className="recommend-button" onClick={handleRecommend}>
+                        유사도 준비물 추천
+                    </button>
+                    <button className="recommend-button" onClick={handleAiRecommend}>
+                        OpenAi 준비물 추천
+                    </button>
+                    <ul>
+                        {items.map((item, index) => (
+                            <li key={item.id} className="checklist-item">
+                                <input type="checkbox" checked={item.ischecked}
+                                       onChange={() => handleCheckboxChange(item.id)}/>
+                                <label htmlFor={`item-${index}`}>{item.name}</label>
+                                <button className="delete-item"
+                                        onClick={() => handleDeleteItem(item.id)}>
+                                    삭제
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                    {/* 추가 버튼 */}
+                    <button
+                        className="add-item"
+                        onClick={() => setShowInput((prev) => !prev)}
+                    >
+                        + 추가
+                    </button>
+                    {/* 입력 칸 및 확인 버튼 */}
+                    {showInput && (
+                        <div className="input-container">
+                            <input
+                                type="text"
+                                placeholder="준비물을 입력하세요"
+                                value={newItem}
+                                onChange={(e) => setNewItem(e.target.value)}
                             />
-                            <p>{weather.temp}°</p>
+                            <button onClick={handleAddItem}>확인</button>
                         </div>
-                    ))}
+                    )}
                 </div>
-            </header>
-            <div className="checklist">
-                <h2>체크리스트</h2>
-                <button className="recommend-button" onClick={handleRecommend}>
-                    유사도 준비물 추천
-                </button>
-                <button className="recommend-button" onClick={handleAiRecommend}>
-                    OpenAi 준비물 추천
-                </button>
-                <ul>
-                    {items.map((item, index) => (
-                        <li key={item.id} className="checklist-item">
-                            <input type="checkbox" checked={item.ischecked}
-                                   onChange={() => handleCheckboxChange(item.id)}/>
-                            <label htmlFor={`item-${index}`}>{item.name}</label>
-                            <button className="delete-item"
-                                    onClick={() => handleDeleteItem(item.id)}>
-                                삭제
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-                {/* 추가 버튼 */}
-                <button
-                    className="add-item"
-                    onClick={() => setShowInput((prev) => !prev)}
-                >
-                    + 추가
-                </button>
-                {/* 입력 칸 및 확인 버튼 */}
-                {showInput && (
-                    <div className="input-container">
-                        <input
-                            type="text"
-                            placeholder="준비물을 입력하세요"
-                            value={newItem}
-                            onChange={(e) => setNewItem(e.target.value)}
-                        />
-                        <button onClick={handleAddItem}>확인</button>
+                {/* 추천 결과 표시 */}
+                {showRecommendations && (
+                    <div className="recommendations-modal">
+                        <h2>추천 준비물</h2>
+                        {recommendations ? (
+                            <ul>
+                                {Object.entries(recommendations).map(([item, score]) => (
+                                    <li key={item}  className="recommendation-item">
+                                        <span>{item} : {score.toFixed(2)}</span>
+                                        <button
+                                            className="add-item"
+                                            onClick={() => handleAddRecommendItem(item)}
+                                        >
+                                            + 추가
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>로딩 중...</p>
+                        )}
+                        <button onClick={() => setShowRecommendations(false)}>닫기</button>
+                    </div>
+                )}
+                {showAiRecommendations && (
+                    <div className="recommendations-modal">
+                        <h2>추천 준비물</h2>
+                        {aiRecommendations? (
+                            <ul>
+                                {aiRecommendations.map((item, index) => (
+                                    <li key={index} className="recommendation-item">
+                                        <span>{item}</span>
+                                        <button
+                                            className="add-item"
+                                            onClick={() => handleAddRecommendItem(item)}
+                                        >
+                                            + 추가
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>로딩 중...</p>
+                        )}
+                        <button onClick={() => setShowAiRecommendations(false)}>닫기</button>
                     </div>
                 )}
             </div>
-            {/* 추천 결과 표시 */}
-            {showRecommendations && (
-                <div className="recommendations-modal">
-                    <h2>추천 준비물</h2>
-                    {recommendations ? (
-                        <ul>
-                            {Object.entries(recommendations).map(([item, score]) => (
-                                <li key={item}  className="recommendation-item">
-                                    <span>{item} : {score.toFixed(2)}</span>
-                                    <button
-                                        className="add-item"
-                                        onClick={() => handleAddRecommendItem(item)}
-                                    >
-                                        + 추가
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>로딩 중...</p>
-                    )}
-                    <button onClick={() => setShowRecommendations(false)}>닫기</button>
-                </div>
-            )}
-            {showAiRecommendations && (
-                <div className="recommendations-modal">
-                    <h2>추천 준비물</h2>
-                    {aiRecommendations? (
-                        <ul>
-                            {aiRecommendations.map((item, index) => (
-                                <li key={index} className="recommendation-item">
-                                    <span>{item}</span>
-                                    <button
-                                        className="add-item"
-                                        onClick={() => handleAddRecommendItem(item)}
-                                    >
-                                        + 추가
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>로딩 중...</p>
-                    )}
-                    <button onClick={() => setShowAiRecommendations(false)}>닫기</button>
-                </div>
-            )}
         </div>
     );
 };

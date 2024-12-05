@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './boardlist.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function HotPosts() {
@@ -7,7 +8,7 @@ function HotPosts() {
 
     // 인기 게시글 데이터 불러오기
     useEffect(() => {
-        fetch('posts/popular')  // 인기 게시글을 불러오는 API 호출
+        fetch('http://13.124.145.176:8080/posts/popular')  // 인기 게시글을 불러오는 API 호출
             .then(response => {
                 if (!response.ok) {
                     throw new Error('인기 게시글을 불러오는 데 실패했습니다.');
@@ -27,14 +28,13 @@ function HotPosts() {
             });
     }, []);  // boardName에 관계없이 최초 한 번만 실행
 
-    // 게시글 클릭 시 상세 페이지로 이동
     const handlePostClick = (postId) => {
         navigate(`/posts/${postId}`);  // 게시글 ID를 포함한 URL로 이동
     };
 
     return (
-        <div>
-            <header>
+        <div  className="board_overlay">
+            <header id="titleContainer">
                 <img src="/png/back.png" alt="back" className="back" onClick={() => navigate('/board')} />
                 <h1>인기 게시판</h1>
                 <img
@@ -47,12 +47,6 @@ function HotPosts() {
 
             <div id="mainContainer2">
                 <div id="postListContainer">
-                    <div className="createNlist">
-                        <select id="alignBar" defaultValue="1">
-                            <option value="1">최신순</option>
-                            <option value="2">인기순</option>
-                        </select>
-                    </div>
                     <ul id="postList">
                         {Array.isArray(posts) && posts.length > 0 ? (
                             posts.map((post, index) => (

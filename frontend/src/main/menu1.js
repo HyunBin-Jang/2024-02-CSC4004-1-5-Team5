@@ -30,7 +30,7 @@ function Menu1({ onClose }) {
     };
     return (
         <div>
-            <div>
+            <div className="Style_CSS">
                 <header>
                     <img src="/png/logo.png" alt="logo" className = "logo"/>
                     <h1>TRAVEL KIT</h1>
