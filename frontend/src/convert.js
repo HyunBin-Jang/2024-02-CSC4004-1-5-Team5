@@ -75,24 +75,24 @@ export function cityToCountry(city) {
 
 export function countryToKorean(country) {
     const countryMap = {
-        'japan': '일본',
-        'china': '중국',
-        'taiwan': '대만',
-        'hongkong': '홍콩',
-        'philippines': '필리핀',
-        'indonesia': '인도네시아',
-        'thailand': '태국',
-        'vietnam': '베트남',
-        'singapore': '싱가포르',
-        'malaysia': '말레이시아',
-        'united states': '미국',
-        'canada': '캐나다',
-        'australia': '호주',
-        'united kingdom': '영국',
-        'germany': '독일',
-        'france': '프랑스',
-        'italy': '이탈리아',
-        'spain': '스페인'
+        'Japan': '일본',
+        'China': '중국',
+        'Taiwan': '대만',
+        'Hongkong': '홍콩',
+        'Philippines': '필리핀',
+        'Indonesia': '인도네시아',
+        'Thailand': '태국',
+        'Vietnam': '베트남',
+        'Singapore': '싱가포르',
+        'Malaysia': '말레이시아',
+        'United states': '미국',
+        'Canada': '캐나다',
+        'Australia': '호주',
+        'United kingdom': '영국',
+        'Germany': '독일',
+        'France': '프랑스',
+        'Italy': '이탈리아',
+        'Spain': '스페인'
     };
 
     return countryMap[country] || '알 수 없는 나라';

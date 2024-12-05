@@ -12,10 +12,14 @@ import java.util.stream.Collectors;
 @Service
 public class CFService {
     private final ChecklistRepository checklistRepository;
+    private final WordCFService wordCFService;
+    private final WordSimilarityService wordSimilarityService;
 
     @Autowired
-    public CFService(ChecklistRepository checklistRepository) {
+    public CFService(ChecklistRepository checklistRepository, WordCFService wordCFService, WordSimilarityService wordSimilarityService) {
         this.checklistRepository = checklistRepository;
+        this.wordCFService = wordCFService;
+        this.wordSimilarityService = wordSimilarityService;
     }
 
     public  Map<String, Double> recommendItems(Long checklistId) {
@@ -57,14 +61,20 @@ public class CFService {
             Set<String> otherUserItems = userItemsMap.get(otherChecklistId);
             for (String item : otherUserItems) {
                 if (!currentUserItems.contains(item)) {
-                    // 기존 추천 점수가 존재하면 현재 유사도와 비교하여 더 높은 값을 저장
-                    double existingScore = recommendationScores.getOrDefault(item, 0.0);
-                    if (similarity > existingScore) {
-                        recommendationScores.put(item, similarity);
+                    for (String otherItem : otherUserItems) {
+                        if (!item.equals(otherItem)) {
+                            if (wordSimilarityService.calculateWordFormSimilarity(item, otherItem) >= 2 // 형태 유사도, 의미 유사도
+                                    && wordCFService.measureSimilarity(item, otherItem) <= 0.8) {
+                                // 기존 추천 유사도가 존재하면 현재 유사도와 비교하여 더 높은 값을 저장
+                                double existingScore = recommendationScores.getOrDefault(item, 0.0);
+                                if (similarity > existingScore) {
+                                    recommendationScores.put(item, similarity);
+                                }
+                            }
+                        }
                     }
                 }
             }
-
         }
         // 추천 준비물 리스트 정렬
         Map<String, Double> sortedItemsDesc = recommendationScores.entrySet()

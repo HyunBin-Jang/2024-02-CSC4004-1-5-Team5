@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Cookies from "js-cookie";
+import axios from "axios";
+import './board.css';
 
 function PostCreate() {
     const { boardName } = useParams();  // URL에서 boardName을 가져옴
@@ -25,19 +28,12 @@ function PostCreate() {
             alert('본문이 없습니다. 본문 내용을 입력해주세요.');
             return;
         }
-
-        // 쿠키에서 memberId 가져오기
-        const memberId = getCookie('memberId');
-        if (!memberId) {
-            alert('로그인이 필요합니다.');
-            return;
-        }
-
+        const userId = localStorage.getItem("userId");
         // 게시글 데이터 생성
         const postData = {
             title: title.trim(),
             content: content.trim(),
-            member: { id: memberId },  // 쿠키에서 가져온 memberId를 포함
+            member: { id: userId },  // 쿠키에서 가져온 memberId를 포함
             createdAt: new Date().toISOString(),
         };
 
@@ -52,7 +48,7 @@ function PostCreate() {
                     // 게시글 추가 성공 시
                     response.json().then((data) => {
                         alert('게시글이 성공적으로 추가되었습니다.');
-                        navigate(`/board/${boardName}`); // 게시판으로 돌아가기
+                        navigate(`/board`); // 게시판으로 돌아가기
                     });
                 } else {
                     alert('게시글 추가에 실패했습니다. 다시 시도해주세요.');
@@ -66,8 +62,8 @@ function PostCreate() {
 
     // 게시글 작성 폼
     return (
-        <div>
-            <header>
+        <div className="board_overlay">
+            <header id="titleContainer" className="createEdit">
                 <img
                     src="/png/back.png"
                     alt="back"

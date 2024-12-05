@@ -9,24 +9,26 @@ function Menu2({ onClose }) {
     };
     return (
         <div>
-            <div>
+            <div className="Style_CSS">
                 <header>
                     <img src="/png/logo.png" alt="logo" className = "logo"/>
                     <h1>TRAVEL KIT</h1>
                     <img
                         src="/png/delete.png"
                         alt="close menu"
-                        onClick={onClose}
+                        onClick={goBack}
                         className = "delete"
                     />
                 </header>
-                    <h3>
-                        <a href="/mychecklist">나의 체크리스트</a>
-                        <br />
-                        <a href="/board">게시판</a>
-                        <br />
-                        <a href="/login">로그인</a>
-                    </h3>
+                <h3>
+                    <a href="/mychecklist">나의 체크리스트</a>
+                    <br/>
+                    <br/>
+                    <a href="/board">게시판</a>
+                    <br/>
+                    <br/>
+                    <a href="/login">로그인</a>
+                </h3>
             </div>
         </div>
     );

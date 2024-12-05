@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./list.css";
 import { useNavigate } from "react-router-dom";
-
+import {cityToKorean, countryToKorean} from '../convert';
 const CheckList = () => {
     const [checklists, setChecklists] = useState([]);
     const [error, setError] = useState("");
@@ -40,19 +40,23 @@ const CheckList = () => {
         navigate(-1);  // -1은 이전 페이지를 의미
     };
     return (
-         <div>
-              <header>
-                <img src="/png/logo.png" alt="logo" className="list-logo" />
-                <h1>TRAVEL KIT</h1>
-              </header>
-
-              <form className="list-form">
-                <h2>나의 체크리스트</h2>
-
-                <div className="checklist-container">
-                  {checklists.map((checklist, index) => (
+         <div className="list-body">
+             <header>
+                 <img src="/png/logo.png" alt="logo" className = "logo"/>
+                 <h1>TRAVEL KIT</h1>
+                 <img
+                     src="/png/delete.png"
+                     alt="Delete"
+                     className="delete"
+                     onClick={(goBack)}
+                 />
+             </header>
+             <form className="list-form">
+                 <h2>나의 체크리스트</h2>
+                 <div className="checklist-container">
+                     {checklists.map((checklist, index) => (
                     <div key={index} className="checklist-card" onClick={() => (window.location.href = `/checklist/${checklist.id}`)}>
-                      <p>{checklist.destination.country} - {checklist.destination.city}</p>
+                      <p>{countryToKorean(checklist.destination.country)} - {cityToKorean(checklist.destination.city)}</p>
                       <span>{checklist.departureDate} ~ {checklist.arrivalDate}</span>
                     </div>
                   ))}

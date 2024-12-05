@@ -54,7 +54,7 @@ function Signup() {
   };
 
   return (
-      <div>
+      <div className="loginCSS">
         <header>
           <img src="/png/logo.png" alt="logo" className="logo" />
           <h1>TRAVEL KIT</h1>

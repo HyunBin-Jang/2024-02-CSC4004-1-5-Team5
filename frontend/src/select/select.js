@@ -129,34 +129,21 @@ const SelectPage = () => {
         }
     };
 
-    // Handle the back button click
-    const handleBackClick = () => {
-        //navigate("/previous-page"); // Replace '/previous-page' with the actual path you want
-    };
 
-    // Handle the delete button click
     const handleDeleteClick = () => {
-        //navigate("/delete-page"); // Replace '/delete-page' with the actual path you want
+        navigate(-1);
     };
-
-
 
 
     return (
         <div className="select-container">
               <header className="select-header">
-                <img
-                  src="back.png"
-                  alt="Back"
-                  className="select-back-icon"
-                  onClick={() => window.location.href = '/back'}
-                />
                 <h1 className="select-title">새로운 체크리스트</h1>
                 <img
-                  src="delete.png"
+                  src="/png/delete.png"
                   alt="Delete"
                   className="select-delete-icon"
-                  onClick={() => window.location.href = '/delete'}
+                  onClick={(handleDeleteClick)}
                 />
               </header>
 
@@ -204,10 +191,10 @@ const SelectPage = () => {
                         className="create-checklist-button"
                         onClick={handleNavigateClick}
                     >
-                        체크리스트 생성
+                        다음 단계로
                     </button>
                 </div>
-            </section>
+              </section>
         </div>
     );
 };

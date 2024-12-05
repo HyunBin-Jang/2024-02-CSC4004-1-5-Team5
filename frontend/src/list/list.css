@@ -7,7 +7,7 @@
   font-family: 'Pretendard', sans-serif;
 }
 
-body {
+.list-body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,16 +16,17 @@ body {
 
 /* 헤더 스타일 */
 .list-header {
+  margin-top: 20px;
   position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 20px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 하단 그림자 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
 }
 
 .list-header img {
@@ -37,12 +38,13 @@ body {
 .list-header .list-logo {
   width: 40px;
   height: auto;
+  margin-right: -15px; /* 텍스트와 로고 겹침 */
 }
 
 .list-header h1 {
   font-size: 28px;
-  color: #414141;
   font-weight: 800;
+  color: #414141;
   text-align: center;
   margin: 0;
 }
@@ -55,13 +57,15 @@ body {
   align-items: center;
   width: 90%;
   max-width: 1200px;
-  margin-top: 200px;
+  margin-top: 100px;
+
 }
 
 .list-form h2 {
-  font-size: 28px;
+  font-size: 21px;
   color: #414141;
   margin-bottom: 40px;
+  margin-top:25px;
 }
 
 /* 체크리스트 컨테이너 */
@@ -70,9 +74,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
 }
-
 /* 체크리스트 카드 */
 .checklist-card {
   position: relative;
@@ -154,4 +157,14 @@ body {
 .add-checklist-card:active {
   background-color: #003f87;
   transform: scale(0.95);
+}
+.delete{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
 }
