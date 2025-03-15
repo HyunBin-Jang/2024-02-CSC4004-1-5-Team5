@@ -9,12 +9,9 @@
 
 
 ### UI
-
-<div display="block" style="overflow:scroll">
-     <img width="200" src="https://github.com/user-attachments/assets/8527e568-153e-45b7-ab82-740384569f1e">
-     <img width="200" src="https://github.com/user-attachments/assets/7e9d2622-34c2-4495-9551-1d1ada1a699d">
-     <img width="200" src="https://github.com/user-attachments/assets/9a156b40-8521-4b6a-8d43-c6496f98a496">
-     <img width="200" src="https://github.com/user-attachments/assets/97d5503d-cb24-4da0-84d6-195adabc6cee">
-     <img width="200" src="https://github.com/user-attachments/assets/ebe6dd13-0e49-46ed-9168-ee2eaf171b87">
-     <img width="200" src="https://github.com/user-attachments/assets/d0a5d4ba-dedc-41e4-a0c4-6b1dc053f010">
-</div>
+<p align="center">
+     <img width="70%" src="https://github.com/user-attachments/assets/8527e568-153e-45b7-ab82-740384569f1e">
+     <img width="70%" src="https://github.com/user-attachments/assets/7e9d2622-34c2-4495-9551-1d1ada1a699d">
+     <img width="70%" src="https://github.com/user-attachments/assets/9a156b40-8521-4b6a-8d43-c6496f98a496">
+     <img width="70%" src="https://github.com/user-attachments/assets/97d5503d-cb24-4da0-84d6-195adabc6cee">
+</p>
