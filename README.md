@@ -29,8 +29,8 @@
 프로젝트 내에서는 User-based Filterling의 User를 하나의 체크리스트로 다루었다. 선택된 지역의 체크리스트 간 유사성을 측정한다. 유사하다고 판단된 체크리스트 A를 사용자 체크리스트와 비교하여 체크리스트 A에는 존재하지만 사용자 체크리스트에는 존재하지 않는 품목을 사용자에게 제공하는 방식으로 적용한다. 유저 기반 필터링의 유사도 측정 방법으로 자카드 유사도(Jaccard Similarity)를 이용하여 측정되었다.
 
 프로젝트 내 적용된 자카드 유사도(Jaccard Similarity)
-<img width="60%" src="https://github.com/user-attachments/assets/9ba2c147-92dd-4b4a-ab1d-bb6701b3b2e9">
-<img width="60%" src="https://github.com/user-attachments/assets/6fe2ffa9-2019-447d-b471-4592e1c14aad">
+<img width="20%" src="https://github.com/user-attachments/assets/9ba2c147-92dd-4b4a-ab1d-bb6701b3b2e9">
+<img width="20%" src="https://github.com/user-attachments/assets/6fe2ffa9-2019-447d-b471-4592e1c14aad">
 
 ---
 
