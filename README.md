@@ -34,6 +34,7 @@
 <img width="30%" src="https://github.com/user-attachments/assets/6fe2ffa9-2019-447d-b471-4592e1c14aad">
 
 
+---
 
 ### 중복 Item 추천 해결
 
